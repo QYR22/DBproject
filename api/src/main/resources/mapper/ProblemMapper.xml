@@ -68,7 +68,7 @@
             </when>
             <otherwise>
                 and p.id in
-                ( select problem_id from pblm_catg where category_id=#{id});
+                ( select problem_id from pblm_catg where category_id=#{id})
             </otherwise>
         </choose>
     </select>
@@ -83,7 +83,7 @@
             </when>
             <otherwise>
                 and p.id in
-                ( select problem_id from pblm_orgn where organization_id=#{id});
+                ( select problem_id from pblm_orgn where organization_id=#{id})
             </otherwise>
         </choose>
     </select>
@@ -97,7 +97,7 @@
             </when>
             <otherwise>
                 and p.id in
-                ( select problem_id from pblm_posn where position_id=#{id});
+                (select problem_id from pblm_posn where position_id=#{id})
             </otherwise>
         </choose>
     </select>
@@ -111,7 +111,7 @@
             </when>
             <otherwise>
                 and p.id in
-                ( select problem_id from pblm_tag where tag_id=#{id});
+                ( select problem_id from pblm_tag where tag_id=#{id})
             </otherwise>
         </choose>
     </select>

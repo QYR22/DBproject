@@ -147,7 +147,7 @@ export default {
             findByTagPage(-1,this.pageConf).then(res =>{
                 if(res.code === 200){
                     this.problemList = res.data.rows
-                    this.pageConf.total = res.data.total
+                    this.pageConf = res.data.total
                     console.log("findByTagPage",this.problemList)
                 }else {
                     this.$message.error(res.msg)
@@ -156,8 +156,12 @@ export default {
 
         },
         handleNodeChange(data, node) {
-            findByTagPage(data.id,this.pageConf).then(res => {
-                this.problemList = res.data
+            // console.log("data.id",data.id)
+            // this.currentData = data
+            this.pageConf = { page: 1, limit: 8, total: 0}
+            findByTagPage(data.id, this.pageConf).then(res => {
+                this.problemList = res.data.rows
+                this.pageConf.total = res.data.total
             })
         },
         handleDel(node, data) {

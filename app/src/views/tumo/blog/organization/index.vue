@@ -205,19 +205,19 @@ export default {
         // },
         //点击某个节点时可以添加节点 要先缓存点击的结点
         handleNodeClick(data,node) {
-            this.currentData = data//当前分类数据
+            // this.currentData = data//当前分类数据
             // this.currentNode = node//当前分类节点
             if(data !== undefined){
-                console.log("handle click", data?.name);
-                console.log("handle click", data.id);
+                // console.log("handle click", data?.name);
+                // console.log("handle click", data.id);
                 this.pageConf = { page: 1, limit: 8, total: 0}
                 findByOrganizationPage(data.id, this.pageConf).then(res =>{
                     if(res.code === 200){
-                        console.log("data.id", data.id);
+                        // console.log("data.id", data.id);
                         this.problemList = res.data.rows
                         this.pageConf.total = res.data.total
-                        console.log("problemList",this.problemList)
-                        console.log("pageconf",this.pageConf)
+                        // console.log("problemList",this.problemList)
+                        // console.log("pageconf",this.pageConf)
                     }else{
                         this.$message.error(res.msg)
                     }
