@@ -1,0 +1,120 @@
+package cn.tycoding.biz.controller;
+import cn.tycoding.biz.service.ProblemService;
+import cn.tycoding.common.constants.CommonConstant;
+import cn.tycoding.biz.entity.Problem;
+import cn.tycoding.common.annotation.Log;
+import cn.tycoding.common.controller.BaseController;
+import cn.tycoding.common.exception.GlobalException;
+import cn.tycoding.common.utils.QueryPage;
+import cn.tycoding.common.utils.R;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.PrintWriter;
+
+
+@RestController
+@RequestMapping(CommonConstant.BASE_API + "/problem")
+@Api(value = "ProblemController", tags = {"题目功能接口"})
+public class ProblemController extends BaseController {
+
+    @Autowired
+    private ProblemService problemService;
+
+    //list 没有分页的
+    @GetMapping("/findByCategory/{id}")
+    public R findByCategory(@PathVariable Long id) {
+        return new R<>(problemService.findByCategory(id));
+    }
+
+    //DONE 有分页的findByCategory
+    //这里使用get方法
+    @GetMapping("/findByCategoryPage/{id}")
+    public R findByCategoryPage(@PathVariable Long id, QueryPage queryPage) {
+        Long curUserId = this.getCurrentUser().getId();
+        //ProblemCategory problemCategory
+        return new R<>(super.getData(problemService.findByCategoryPage(id, curUserId, queryPage)));
+    }
+    @GetMapping("/findByOrganizationPage/{id}")
+    public R findByOrganizationPage(@PathVariable Long id, QueryPage queryPage) {
+        Long curUserId = this.getCurrentUser().getId();
+        return new R<>(super.getData(problemService.findByOrganizationPage(id, curUserId, queryPage)));
+    }
+
+    @GetMapping("/findByPositionPage/{id}")
+    public R findByPositionPage(@PathVariable Long id, QueryPage queryPage) {
+        Long curUserId = this.getCurrentUser().getId();
+        return new R<>(super.getData(problemService.findByPositionPage(id, curUserId, queryPage)));
+    }//TODO 题目和position tag categ orgn的关系
+    @GetMapping("/findByTagPage/{id}")
+    public R findByTagPage(@PathVariable Long id, QueryPage queryPage) {
+        Long curUserId = this.getCurrentUser().getId();
+        return new R<>(super.getData(problemService.findByTagPage(id, curUserId, queryPage)));
+    }
+
+    @GetMapping("/findByTag/{id}")
+    public R findByTag(@PathVariable Long id) {
+        return new R<>(problemService.findByTag(id));
+    }
+
+    //带分页功能的查询
+    @PostMapping("/list")
+    public R list(@RequestBody Problem problem, QueryPage queryPage) {
+        // DONE 已完成:  只显示当前用户的题目
+        //TODO 排序
+        Long curUserId = this.getCurrentUser().getId();
+        return new R<>(super.getData(problemService.listByUser(curUserId, problem, queryPage)));
+    }
+
+    @PostMapping("/all")
+    public R all(@RequestBody Problem problem, QueryPage queryPage) {
+        //DONE 主页全显示
+        return new R<>(super.getData(problemService.list(problem, queryPage)));
+    }
+
+    @GetMapping("{id}")
+    public R findById(@PathVariable Long id) {
+        return new R<>(problemService.findById(id));
+    }
+
+    @PostMapping
+    @Log("新增题目")
+    public R add(@RequestBody Problem problem) {
+        try {
+            problem.setUid(this.getCurrentUser().getId());
+            //System.out.println(this.getCurrentUser().getId());
+            //problem.setAuthor(this.getCurrentUser().getUsername());
+            problemService.add(problem);
+            return new R();
+        } catch (Exception e) {
+            throw new GlobalException(e.getMessage());
+        }
+    }
+
+    @PutMapping
+    @Log("更新题目")
+    public R update(@RequestBody Problem problem) {
+        try {
+            problemService.update(problem);
+            //problem.setUid(this.getCurrentUser().getId());
+            return new R();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new GlobalException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @Log("删除题目")
+    public R delete(@PathVariable Long id) {
+        try {
+            System.out.println(this.getCurrentUser().getId());
+            problemService.delete(id);
+            return new R();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new GlobalException(e.getMessage());
+        }
+    }
+}

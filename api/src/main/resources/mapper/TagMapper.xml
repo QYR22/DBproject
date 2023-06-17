@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tycoding.biz.mapper.TagMapper">
+
+    <select id="findTagByProblemId" parameterType="Long" resultType="cn.tycoding.biz.entity.Tag">
+        SELECT t.name
+        FROM tag t
+        WHERE t.id in (
+            SELECT pt.problem_id
+            FROM pblm_tag pt
+            WHERE pt.problem_id = #{id}
+        );
+    </select>
+
+</mapper>

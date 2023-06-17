@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tycoding.biz.mapper.CategoryMapper">
+
+    <!-- 根据题目id查询其关联分类表中的数据 -->
+    <select id="findCategoryByProblemId" parameterType="Long" resultType="cn.tycoding.biz.entity.Category">
+        SELECT p.name
+        FROM category p
+        WHERE p.id in (
+            SELECT pc.problem_id
+            FROM pblm_catg pc
+            WHERE pc.problem_id = #{id}
+        );
+    </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tycoding.biz.mapper.OrganizationMapper">
+
+    <!-- 根据题目id查询其关联分类表中的数据 -->
+    <select id="findOrganizationByProblemId" parameterType="Long" resultType="cn.tycoding.biz.entity.Organization">
+        SELECT p.*
+        FROM problem p
+        WHERE p.id in (
+            SELECT po.problem_id
+            FROM pblm_orgn po
+            WHERE po.organization_id = #{id}
+        );
+    </select>
+
+</mapper>
+
+
+

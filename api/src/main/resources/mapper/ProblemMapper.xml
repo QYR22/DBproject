@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tycoding.biz.mapper.ProblemMapper">
+
+    <select id="findByUser" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE p.uid = #{id};
+    </select>
+
+    <select id="findByCategory" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE p.id in (
+            SELECT pc.problem_id
+            FROM pblm_catg pc
+            WHERE pc.category_id = #{id}
+            );
+    </select>
+    <select id="findByOrganization" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE p.id in (
+            SELECT po.problem_id
+            FROM pblm_orgn po
+            WHERE po.organization_id = #{id}
+        );
+    </select>
+
+    <select id="findByPosition" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE p.id in (
+            SELECT pp.problem_id
+            FROM pblm_posn pp
+            WHERE pp.position_id = #{id}
+        );
+    </select>
+
+    <select id="findByTag" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE p.id in (
+            SELECT pt.problem_id
+            FROM pblm_tag pt
+            WHERE pt.tag_id = #{id}
+        );
+    </select>
+
+    <!-- 根据category id 从前端传回 查询其关联的题目 的数据 -->
+    <!--查询结果是problem各个字段 所以resultType写Problem-->
+    <!--如果返回结果不对应 需要再封装-->
+    <!--/*动态sql的方式 如果非空就拼接到where中 空则忽略*/-->
+    <!--select标签不可以再包含select标签 这里子查询用 sql标签里面不需要声明resultType
+    sql标签内只是定义了一个可重用的SQL片段 不是一个完整的查询
+    resultType应该在select标签里面声明 表示查询的返回类型-->
+    <!--DONE if标签中Long Integer ==0 传入0时不能正确判断!! 要加"id == 0 or id==null or id==''这两条-->
+
+    <select id="findByCategoryPage" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE 1=1
+        <choose>
+            <when test="id lt 1">
+                and p.uid = #{userId}
+            </when>
+            <otherwise>
+                and p.id in
+                ( select problem_id from pblm_catg where category_id=#{id});
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByOrganizationPage" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE 1=1
+        <choose>
+            <when test="id lt 1">
+                and p.uid = #{userId}
+            </when>
+            <otherwise>
+                and p.id in
+                ( select problem_id from pblm_orgn where organization_id=#{id});
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findByPositionPage" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE 1=1
+        <choose>
+            <when test="id lt 1">
+                and p.uid = #{userId}
+            </when>
+            <otherwise>
+                and p.id in
+                ( select problem_id from pblm_posn where position_id=#{id});
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findByTagPage" resultType="cn.tycoding.biz.entity.Problem">
+        SELECT p.*
+        FROM problem p
+        WHERE 1=1
+        <choose>
+            <when test="id lt 1">
+                and p.uid = #{userId}
+            </when>
+            <otherwise>
+                and p.id in
+                ( select problem_id from pblm_tag where tag_id=#{id});
+            </otherwise>
+        </choose>
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tycoding.biz.mapper.PositionMapper">
+
+    <!-- 根据题目ID 查询其关联的 岗位position 信息 -->
+    <select id="findPositionByProblemId" resultType="cn.tycoding.biz.entity.Position">
+        SELECT p.name
+        FROM position p
+        WHERE p.id in (
+            SELECT pp.problem_id
+            FROM pblm_posn pp
+            WHERE pp.problem_id = #{id}
+            );
+    </select>
+
+</mapper>
