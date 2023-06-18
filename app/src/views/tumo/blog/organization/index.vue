@@ -79,7 +79,7 @@ import {
     selectAllWithTree,
     organizationAdd, organizationUpdate
 } from '@/api/organization'
-import {  findByOrganizationPage } from '@/api/problem'
+import {findByOrganization, findByOrganizationPage} from '@/api/problem'
 
 import Pagination from "@/components/Pagination";
 
@@ -102,7 +102,8 @@ export default {
                 label: 'name'
             },
             pageConf: {page: 1, limit: 8, total: 0},
-            baseUrl: window.location.origin
+            baseUrl: window.location.origin,
+            getResult:[]
         }
     },
     created() {//eltree的data 在生成组件时就加载好
@@ -315,6 +316,15 @@ export default {
             )
         },
         handleDel() {
+            findByOrganization(this.optionData.id).then(res =>{
+                this.getResult = res.data
+                if(this.getResult.length!==0){
+                    this.$message.warning("WARNNING!!有关联problem")
+                }else{
+                    this.$message.warning("检查过了哦 没有关联problem")
+                }
+                console.log("find", this.getResult )
+            })
             this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

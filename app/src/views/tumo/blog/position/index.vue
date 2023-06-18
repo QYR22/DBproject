@@ -79,7 +79,7 @@
 
 <script>
 import { getPositionFilterList, positionDel } from '@/api/position'
-import {findByPositionPage} from '@/api/problem'
+import {findByPositionPage,findByPosition} from '@/api/problem'
 
 import Model from './components/model'
 import Pagination from "@/components/Pagination";
@@ -92,7 +92,8 @@ export default {
             query: {},
             problemList: [],
             pageConf: {page: 1, limit: 8, total: 0},
-            baseUrl: window.location.origin
+            baseUrl: window.location.origin,
+            getResult:[]
         }
     },
     created() {
@@ -161,6 +162,15 @@ export default {
             })
         },
         handleDel(node, data) {
+            findByPosition(data.id).then(res =>{
+                this.getResult = res.data
+                if(this.getResult.length!==0){
+                    this.$message.warning("WARNNING!!有关联problem")
+                }else{
+                    this.$message.warning("检查过了哦 没有关联problem")
+                }
+                console.log("find", this.getResult )
+            })
             this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',

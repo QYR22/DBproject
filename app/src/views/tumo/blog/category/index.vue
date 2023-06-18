@@ -115,6 +115,7 @@ export default {
     data() {
         return {
             optionData:[],
+            getResult:[],
             menuVisible:false,
             form: [],
             query: {},
@@ -212,7 +213,7 @@ export default {
                 if(res.code === 200){
                     this.problemList = res.data.rows
                     this.pageConf.total = res.data.total
-                    console.log("findByCategoryPage",this.problemList)
+                    // console.log("findByCategoryPage",this.problemList)
                 }else {
                     this.$message.error(res.msg)
                 }
@@ -278,8 +279,8 @@ export default {
                         console.log("data.id", data.id);
                         this.problemList = res.data.rows
                         this.pageConf.total = res.data.total
-                        console.log("problemList",this.problemList)
-                        console.log("pageconf",this.pageConf)
+                        // console.log("problemList",this.problemList)
+                        // console.log("pageconf",this.pageConf)
                     }else{
                         this.$message.error(res.msg)
                     }
@@ -377,16 +378,26 @@ export default {
             )
         },
         handleDel() {
+            findByCategory(this.optionData.id).then(res =>{
+                this.getResult = res.data
+                if(this.getResult.length!==0){
+                    this.$message.warning("WARNNING!!有关联problem")
+                }else{
+                    this.$message.warning("检查过了哦 没有关联problem")
+                }
+                console.log("find", this.getResult )
+            })
             this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                console.log("childrenTree",this.optionData.childrenTree)
+                // console.log("childrenTree",this.optionData.childrenTree)
                 if(this.optionData.childrenTree !== undefined){
                     this.$message.error("有子文件夹哦,不可以删除父文件夹。可以先删除其子文件夹,再删root文件夹。")
                     return false;
-                }//排除有子文件夹的父文件夹了 只有children=NULL时才可以删除
+                }
+                //排除有子文件夹的父文件夹了 只有children=NULL时才可以删除
                 //根据id删除
                 categoryDel(this.optionData.id).then(res => {
                     if (res.code === 200) {

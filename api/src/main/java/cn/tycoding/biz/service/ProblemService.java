@@ -21,6 +21,21 @@ public interface ProblemService extends IService<Problem> {
      * @param id Category Id
      */
     List<Problem> findByCategory(Long id);
+    /**
+     * 根据CategoryId查询题目
+     * @param id Organization Id
+     */
+    List<Problem> findByOrganization(Long id);
+    /**
+     * 根据TagId查询题目
+     * @param id Position id
+     */
+    List<Problem> findByPosition(Long id);
+    /**
+     * 根据TagId查询题目
+     * @param id Tag id
+     */
+    List<Problem> findByTag(Long id);
 
     /** DONE 分页!!
      * 根据Category查询题目
@@ -34,11 +49,7 @@ public interface ProblemService extends IService<Problem> {
     //根据tag id查询其关联的题目
     IPage<Problem> findByTagPage(Long id, Long userId, QueryPage queryPage);
 
-    /**
-     * 根据TagId查询题目
-     * @param id Tag id
-     */
-    List<Problem> findByTag(Long id);
+
 
 
     // 这里使用IPage作返回值

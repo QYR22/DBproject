@@ -48,7 +48,18 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
     public List<Problem> findByCategory(Long id) {
         return problemMapper.findByCategory(id);
     }
-
+    @Override
+    public List<Problem> findByOrganization(Long id) {
+        return problemMapper.findByOrganization(id);
+    }
+    @Override
+    public List<Problem> findByPosition(Long id) {
+        return problemMapper.findByPosition(id);
+    }
+    @Override
+    public List<Problem> findByTag(Long id) {
+        return problemMapper.findByTag(id);
+    }
 
     /**
      * 根据 entity 条件，查询全部记录and翻页
@@ -109,10 +120,6 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
     }
 
 
-    @Override
-    public List<Problem> findByTag(Long id) {
-        return problemMapper.findByTag(id);
-    }
 
     //无用户隔离 old version
     @Override

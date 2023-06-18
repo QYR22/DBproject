@@ -1,26 +1,33 @@
 <template>
     <div class="app-container">
         <el-card>
-            <el-form size="mini" :inline="true">
+            <el-form size="medium" :inline="true">
+                <el-form-item>
+                    <el-input v-model="textQuery" placeholder="请输入题目标题查询" style="width: 300px" />
+                </el-form-item>
+            </el-form>
+        </el-card>
+        <el-card>
+            <el-form size="medium" :inline="true">
                 <!-- DONE 这里是题目关键字匹配 -->
                 <el-form-item>
                     <el-input v-model=query.title placeholder="请输入题目标题查询" style="width: 300px" />
                 </el-form-item>
                 <el-form-item>
-                  <el-select v-model=query.difficult placeholder="请选择难度" style="width: 300px">
+                  <el-select v-model=query.difficult placeholder="请选择难度" style="width: 280px">
                     <el-option label="简单" value=1></el-option>
                     <el-option label="中等" value=2></el-option>
                     <el-option label="困难" value=3></el-option>
                   </el-select>
                 </el-form-item>
               <el-form-item>
-                <el-select v-model=query.finished placeholder="请选择完成情况" style="width: 300px">
+                <el-select v-model=query.finished placeholder="请选择完成情况" style="width: 280px">
                   <el-option label="已完成" value=1></el-option>
                   <el-option label="未完成" value=2></el-option>
                 </el-select>
               </el-form-item>
                 <el-form-item>
-                    <el-select v-model=query.stars placeholder="请选择掌握程度" style="width: 300px">
+                    <el-select v-model=query.stars placeholder="请选择掌握程度" style="width: 280px">
                         <el-option label="一星" value=1></el-option>
                         <el-option label="二星" value=2></el-option>
                         <el-option label="三星" value=3></el-option>
@@ -30,7 +37,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-select v-model=query.type placeholder="请选择类型" style="width: 300px">
+                    <el-select v-model=query.type placeholder="请选择类型" style="width: 280px">
                         <el-option label="文字题" value=1></el-option>
                         <el-option label="算法题" value=2></el-option>
                     </el-select>
@@ -44,8 +51,7 @@
                     :data="list"
                     tooltip-effect="dark"
                     style="width: 100%"
-                    size="mini"
-                >
+                    size="mini">
                     <el-table-column prop="id" label="ID" width="55" ></el-table-column>
                     <el-table-column prop="title" label="题目" width="200" ></el-table-column>
                     <el-table-column prop="type" label="类型"  width="80">

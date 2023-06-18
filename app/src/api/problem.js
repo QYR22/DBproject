@@ -6,6 +6,27 @@ export function findByCategory(id) {
     method: 'get'
   })
 }
+export function findByOrganization(id) {
+    return request({
+        url: `/problem/findByOrganization/${id}`,
+        method: 'get'
+    })
+}
+export function findByPosition(id) {
+    return request({
+        url: `/problem/findByPosition/${id}`,
+        method: 'get'
+    })
+}
+export function findByTag(id) {
+    return request({
+        url: `/problem/findByTag/${id}`,
+        method: 'get'
+    })
+}
+
+
+
 //DONE
 export function findByCategoryPage(id, query) {
     return request({
@@ -32,12 +53,6 @@ export function findByTagPage(id, query) {
     })
 }
 
-export function findByTag(id) {
-  return request({
-    url: `/problem/findByTag/${id}`,
-    method: 'get'
-  })
-}
 export function getProblemList(data, query) {
     return request({
         url: `/problem/list?page=${query.page}&limit=${query.limit}`,

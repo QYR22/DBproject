@@ -28,6 +28,22 @@ public class ProblemController extends BaseController {
         return new R<>(problemService.findByCategory(id));
     }
 
+    @GetMapping("/findByOrganization/{id}")
+    public R findByOrganization(@PathVariable Long id) {
+        return new R<>(problemService.findByOrganization(id));
+    }
+
+    @GetMapping("/findByPosition/{id}")
+    public R findByPosition(@PathVariable Long id) {
+        return new R<>(problemService.findByPosition(id));
+    }
+
+    @GetMapping("/findByTag/{id}")
+    public R findByTag(@PathVariable Long id) {
+        return new R<>(problemService.findByTag(id));
+    }
+
+
     //DONE 有分页的findByCategory
     //这里使用get方法
     @GetMapping("/findByCategoryPage/{id}")
@@ -53,10 +69,6 @@ public class ProblemController extends BaseController {
         return new R<>(super.getData(problemService.findByTagPage(id, curUserId, queryPage)));
     }
 
-    @GetMapping("/findByTag/{id}")
-    public R findByTag(@PathVariable Long id) {
-        return new R<>(problemService.findByTag(id));
-    }
 
     //带分页功能的查询
     @PostMapping("/list")
