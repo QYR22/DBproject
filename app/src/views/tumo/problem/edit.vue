@@ -32,26 +32,26 @@
               <el-row>
                 <el-col>
                   <el-form-item label="题目类型" prop="type">
-                    <el-select v-model="form.type">
+                    <el-select v-model="form.type" @change="$forceUpdate()">
                       <el-option label="文字题" value=1></el-option>
                       <el-option label="算法题" value=2></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="题目难度" prop="difficult">
-                    <el-select v-model="form.difficult">
+                    <el-select v-model="form.difficult" @change="$forceUpdate()">
                       <el-option label="简单" value=1></el-option>
                       <el-option label="中等" value=2></el-option>
                       <el-option label="困难" value=3></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="完成情况" prop="finished">
-                    <el-select v-model="form.finished">
+                    <el-select v-model="form.finished" @change="$forceUpdate()">
                       <el-option label="已完成" value=1></el-option>
                       <el-option label="未完成" value=2></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item label="掌握程度" prop="stars">
-                    <el-select v-model="form.stars">
+                    <el-select v-model="form.stars" @change="$forceUpdate()">
                       <el-option label="一星" value=1></el-option>
                       <el-option label="二星" value=2></el-option>
                       <el-option label="三星" value=3></el-option>
@@ -96,14 +96,15 @@ export default {
         return {
             isShow: false,
             content: '',
-            form: {des: '', content: ''},//
+            form: {des: '', content: ''},
             category: [],
             tagList: [],
             rulesForm: {
                 title: [{ required: true, message: '请输入题目标题', trigger: 'blur' }],
                 des: [{ required: true, message: '请输入题目描述', trigger: 'blur' }],
                 type: [{ required: true, message: '算法题 or 文字题?', trigger: 'blur' }]
-            }
+            },
+            isCodeVisible: false
         }
     },
     watch: {
@@ -131,16 +132,81 @@ export default {
                 this.form.id = res.data.id
                 this.form.title = res.data.title
                 this.form.des = res.data.des
+                this.form.code = res.data.code
                 this.form.content = res.data.content
-                // this.form.tags = res.data.tags
-                console.log(res.data)
-            })
+                //this.form.tags = res.data.tags
+                this.form.catagory = res.data.catagory
+                this.form.type = res.data.type
+                if (this.form.type === 1) {
+                this.form.type = '文字题';
+            } else if (this.form.type === 2) {
+                this.form.type = '算法题';
+            }
+            this.form.difficult = res.data.difficult
+            if (this.form.difficult === 1) {
+                this.form.difficult = '简单';
+            } else if (this.form.difficult === 2) {
+                this.form.difficult = '中等';
+            } else if (this.form.difficult === 3) {
+                this.form.difficult = '困难';
+            }
+            this.form.finished = res.data.finished
+            if (this.form.finished === 1) {
+                this.form.finished = '已完成';
+            } else if (this.form.finished === 2) {
+                this.form.finished = '未完成';
+            }
+            this.form.stars = res.data.stars
+            if (this.form.stars === 1) {
+                this.form.stars = '一星';
+            } else if (this.form.stars === 2) {
+                this.form.stars = '二星';
+            } else if (this.form.stars === 3) {
+                this.form.stars = '三星';
+            } else if (this.form.stars === 4) {
+                this.form.stars = '四星';
+            } else if (this.form.stars === 5) {
+                this.form.stars = '五星';
+            }
+            console.log(res.data)
+        })
             this.isShow=true
         },
         handleSubmit(formName) {
+
+            if (this.form.type === '文字题') {
+                this.form.type = 1;
+            } else if (this.form.type === '算法题') {
+                this.form.type = 2;
+            }
+            if (this.form.difficult === '简单') {
+                this.form.difficult = 1;
+            } else if (this.form.difficult === '中等') {
+                this.form.difficult = 2;
+            } else if (this.form.difficult === '困难') {
+                this.form.difficult = 3;
+            }
+            if (this.form.finished === '已完成') {
+                this.form.finished = 1;
+            } else if (this.form.finished === '未完成') {
+                this.form.finished = 2;
+            }
+            if (this.form.stars === '一星') {
+                this.form.stars = 1;
+            } else if (this.form.stars === '二星') {
+                this.form.stars = 2;
+            } else if (this.form.stars === '三星') {
+                this.form.stars = 3;
+            } else if (this.form.stars === '四星') {
+                this.form.stars = 4;
+            } else if (this.form.stars === '五星') {
+                this.form.stars = 5;
+            }
             this.$refs[formName].validate((valid) => {
                 if (valid) {
+                    console.log("this form",this.form)
                     problemUpdate(this.form).then(res => {
+                        if(this.form.type)
                         if (res.code === 200) {
                             this.$message.success('题目更新成功，即将跳转到题目列表页面')
                             setTimeout(function() {
