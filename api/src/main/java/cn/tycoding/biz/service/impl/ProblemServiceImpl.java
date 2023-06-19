@@ -61,6 +61,22 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
         return problemMapper.findByTag(id);
     }
 
+    // 实现全文关键字查询 id查询其关联的题目
+    //直接融合到总查询里面了
+//    @Override
+//    public IPage<Problem> findByWords(String queryText, Long userId, QueryPage queryPage){
+//        LambdaQueryWrapper<Problem> queryWrapper = new LambdaQueryWrapper<>();
+//        queryWrapper.eq(Problem::getUid, userId);
+//
+//        //!!实现应该是OR!! 用lambda表达式
+//        queryWrapper.and(StringUtils.isNotBlank(queryText), wrapper ->
+//            wrapper.like(Problem::getDes, queryText).or().like(Problem::getContent,queryText)
+//        );
+//
+//        IPage<Problem> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
+//        IPage<Problem> selectPage = problemMapper.selectPage(page, queryWrapper);
+//        return selectPage;
+//    }
     /**
      * 根据 entity 条件，查询全部记录and翻页
      * @param //page         分页查询条件（可以为 RowBounds.DEFAULT）
@@ -149,6 +165,12 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
         queryWrapper.eq(problem.getType() != 0, Problem::getType, problem.getType());
         queryWrapper.eq(problem.getStars() != 0, Problem::getStars, problem.getStars());
         queryWrapper.eq(problem.getDifficult() != 0, Problem::getDifficult, problem.getDifficult());
+        queryWrapper.ge(problem.getLastEdit() != null, Problem::getLastEdit, problem.getLastEdit());
+
+        //!!实现应该是OR!! 用lambda表达式
+        queryWrapper.and(StringUtils.isNotBlank(problem.getDes()), wrapper ->
+                wrapper.like(Problem::getDes, problem.getDes()).or().like(Problem::getContent,problem.getDes())
+        );
 
         IPage<Problem> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         IPage<Problem> selectPage = problemMapper.selectPage(page, queryWrapper);

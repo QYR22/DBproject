@@ -106,6 +106,12 @@ const tumoRouter = [
                 component: () => import('@/views/tumo/blog/tag/index'),
                 name: 'tumoBlogTag',
                 meta: { title: '标签添加+筛选', icon: 'el-icon-edit' }
+            },
+            {
+                path: 'multiple',
+                component: () => import('@/views/tumo/blog/multiple/index'),
+                name: 'tumoBlogMultiple',
+                meta: { title: '全局筛选', icon: 'el-icon-edit' }
             }
         ]
     },

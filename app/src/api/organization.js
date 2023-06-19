@@ -24,9 +24,9 @@ export function getOrganizationFilterList(data) {
     })
 }
 //树形！！
-export function selectAllWithTree(data) {
+export function selectAllOrgnWithTree(data) {
     return request({
-        url: `/organization/selectAllWithTree`,
+        url: `/organization/selectAllOrgnWithTree`,
         method: 'post',
         data
     })
@@ -41,9 +41,9 @@ export function getOrganizationById(id) {
 
 
 
-export function getSubCategories(id) {
+export function getSubOrganizations(id) {
     return request({
-        url: `/organization/getSubCategories/${id}`,
+        url: `/organization/getSubOrganizations/${id}`,
         method: 'get'
     })
 }

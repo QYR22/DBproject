@@ -1,10 +1,11 @@
 <template>
     <div class="app-container">
-        <el-card>
+        <el-card> <!-- 全文字段模糊搜索 -->
             <el-form size="medium" :inline="true">
                 <el-form-item>
-                    <el-input v-model="textQuery" placeholder="请输入题目标题查询" style="width: 300px" />
+                    <el-input v-model="query.des" clearable autosize prefix-icon="el-icon-search" placeholder="全文模糊搜索" style="width: 300px" />
                 </el-form-item>
+                <el-form-item><el-button type="primary" icon="el-icon-search" @click="fetchData" /></el-form-item>
             </el-form>
         </el-card>
         <el-card>
@@ -35,13 +36,19 @@
                         <el-option label="五星" value=5></el-option>
                     </el-select>
                 </el-form-item>
-
+                <el-form-item>
+                    <el-select v-model=query.lastEdit placeholder="请选择时间范围" style="width: 300px">
+                        <el-option label="近一周" :value="getPastDate(7)"></el-option>
+                        <el-option label="近一个月" :value="getPastDate(30)"></el-option>
+                        <el-option label="近一年" :value="getPastDate(365)"></el-option>
+                    </el-select>
+                </el-form-item>
                 <el-form-item>
                     <el-select v-model=query.type placeholder="请选择类型" style="width: 280px">
                         <el-option label="文字题" value=1></el-option>
                         <el-option label="算法题" value=2></el-option>
                     </el-select>
-                    <el-form-item style="padding: 0;margin: 0">
+                    <el-form-item>
                         <el-button type="success" icon="el-icon-search" @click="fetchData" />
                     </el-form-item>
                 </el-form-item>
@@ -74,7 +81,6 @@
                             {{ starsChange[scope.$index] }}
                         </template>
                     </el-table-column>
-
                     <el-table-column prop="lastEdit" label="最近修改时间" width="150" ></el-table-column>
                     <el-table-column prop="createTime" label="创建时间" width="150" ></el-table-column>
                     <el-table-column label="跳转链接">
@@ -102,13 +108,14 @@
 <script>
 import { getProblemList, getProblemById, problemDel } from '@/api/problem'
 import Pagination from '@/components/Pagination'
-/* TODO 上次编辑“最近” 近一周 近一年 的显示
+/* DONE 上次编辑“最近” 近一周 近一年 的显示
 *   创建新题目时标星
 * 创建题目时选择category需要是父子选择or只选择父文件夹 */
 export default {
     components: { Pagination },
     data() {
         return {
+            textQuery: '',
             list: [],
             pageConf: {page: 1, limit: 8, total: 0},
             baseUrl: window.location.origin,
@@ -166,12 +173,20 @@ export default {
         }
     },
     methods: {
+        getPastDate(days) {
+            const date = new Date();
+            date.setDate(date.getDate() - days);
+            const formattedDate = date.toISOString().split('T')[0] + ' 00:00:00'; // 转换为 "yyyy-MM-dd 00:00:00" 格式
+            return formattedDate;
+        },
         handleClose() {
             this.dialogVisible = false
             this.form = {}
         },
         fetchData(query) {
+            // this.query.content = this.query.des
             getProblemList(this.query, this.pageConf).then(res => {
+                // console.log("query",this.query)
                 if (res.code === 200) {
                     this.list = res.data.rows
                     this.pageConf.total = res.data.total
@@ -191,7 +206,7 @@ export default {
             })
         },
         handleDel(id) {
-            this.$confirm('你确定永久删除此数据？, 是否继续?', '提示', {
+            this.$confirm('确定永久删除此数据？, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'

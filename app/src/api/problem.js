@@ -26,7 +26,6 @@ export function findByTag(id) {
 }
 
 
-
 //DONE
 export function findByCategoryPage(id, query) {
     return request({
@@ -52,6 +51,14 @@ export function findByTagPage(id, query) {
         method: 'get',
     })
 }
+//many tags
+export function findMulQuery(params,query) {
+    return request({
+        url: `/problem/findMulQuery?page=${query.page}&limit=${query.limit}`,
+        method: 'post',
+        params
+    })
+}
 
 export function getProblemList(data, query) {
     return request({
@@ -60,6 +67,7 @@ export function getProblemList(data, query) {
         data
     })
 }
+
 export function getProblemById(id) {
   return request({
     url: `/problem/${id}`,

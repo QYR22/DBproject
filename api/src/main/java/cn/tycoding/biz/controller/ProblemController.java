@@ -1,4 +1,8 @@
 package cn.tycoding.biz.controller;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import cn.tycoding.biz.entity.MulQuery;
+import cn.tycoding.biz.service.MulQueryService;
 import cn.tycoding.biz.service.ProblemService;
 import cn.tycoding.common.constants.CommonConstant;
 import cn.tycoding.biz.entity.Problem;
@@ -11,8 +15,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.PrintWriter;
-
+import java.util.Map;
 
 @RestController
 @RequestMapping(CommonConstant.BASE_API + "/problem")
@@ -21,6 +24,8 @@ public class ProblemController extends BaseController {
 
     @Autowired
     private ProblemService problemService;
+    @Autowired
+    private MulQueryService mulQueryService;
 
     //list 没有分页的
     @GetMapping("/findByCategory/{id}")
@@ -43,7 +48,6 @@ public class ProblemController extends BaseController {
         return new R<>(problemService.findByTag(id));
     }
 
-
     //DONE 有分页的findByCategory
     //这里使用get方法
     @GetMapping("/findByCategoryPage/{id}")
@@ -63,12 +67,30 @@ public class ProblemController extends BaseController {
         Long curUserId = this.getCurrentUser().getId();
         return new R<>(super.getData(problemService.findByPositionPage(id, curUserId, queryPage)));
     }//TODO 题目和position tag categ orgn的关系
+
     @GetMapping("/findByTagPage/{id}")
     public R findByTagPage(@PathVariable Long id, QueryPage queryPage) {
         Long curUserId = this.getCurrentUser().getId();
         return new R<>(super.getData(problemService.findByTagPage(id, curUserId, queryPage)));
     }
 
+//    @PostMapping("/findMulQuery/")
+//    public R findMulQuery(@RequestBody JSONObject params, QueryPage queryPage) {
+    @PostMapping("/findMulQuery")
+    public R findMulQuery(MulQuery params, QueryPage queryPage) {
+        //TODO 这里传参一开始为什么为什么有bug?????
+        Long curUserId = this.getCurrentUser().getId();
+        params.setUid(this.getCurrentUser().getId());
+        System.out.println(params.toString());
+
+        return new R<>(super.getData(mulQueryService.findMulQuery(queryPage, params)));
+    }
+/*
+Required request body is missing:
+public cn.tycoding.common.utils.R
+cn.tycoding.biz.controller.ProblemController.findMulQuery(java.util.Map<java.lang.String, java.lang.Object>,
+cn.tycoding.common.utils.QueryPage)
+* */
 
     //带分页功能的查询
     @PostMapping("/list")
@@ -90,13 +112,19 @@ public class ProblemController extends BaseController {
         return new R<>(problemService.findById(id));
     }
 
+    //DONE 全文模糊查询
+//    @GetMapping("{getPageByWords}")
+//    public R findByWords(@RequestParam String queryText, QueryPage queryPage) {
+//        //记得用户隔离哦
+//        Long curUserId = this.getCurrentUser().getId();
+//        return new R<>(problemService.findByWords(queryText, curUserId, queryPage));
+//    }
+
     @PostMapping
     @Log("新增题目")
     public R add(@RequestBody Problem problem) {
         try {
             problem.setUid(this.getCurrentUser().getId());
-            //System.out.println(this.getCurrentUser().getId());
-            //problem.setAuthor(this.getCurrentUser().getUsername());
             problemService.add(problem);
             return new R();
         } catch (Exception e) {

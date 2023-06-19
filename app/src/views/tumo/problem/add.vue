@@ -25,8 +25,7 @@
                                     v-for="item in tagList"
                                     :key="item.id"
                                     :label="item.name"
-                                    :value="item"
-                                />
+                                    :value="item"/>
                             </el-select>
                         </el-form-item>
                     </el-col>

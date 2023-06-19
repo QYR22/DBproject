@@ -49,6 +49,9 @@ public interface ProblemService extends IService<Problem> {
     //根据tag id查询其关联的题目
     IPage<Problem> findByTagPage(Long id, Long userId, QueryPage queryPage);
 
+    // 实现全文关键字查询 id查询其关联的题目
+//    IPage<Problem> findByWords(String queryText, Long userId, QueryPage queryPage);
+
 
 
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.tycoding.biz.mapper.MulQueryMapper">
+    <select id="catg" resultType="problem">
+
+    </select>
+    <!-- 根据题目id查询其关联分类表中的数据 -->
+    <select id="doMulQuery" resultType="cn.tycoding.biz.entity.Problem">
+
+    SELECT p.*
+    FROM problem p
+    WHERE p.uid = #{mulQuery.uid}
+
+        <if test="mulQuery.lastEdit != null">
+            AND p.last_edit >= date(#{mulQuery.lastEdit})
+        </if>
+        <if test="mulQuery.finished != null and mulQuery.finished &gt; 0">
+            AND p.finished = #{mulQuery.finished}
+        </if>
+        <if test="mulQuery.type != null and mulQuery.type &gt; 0">
+            AND p.type = #{mulQuery.type}
+        </if>
+        <if test="mulQuery.stars != null and mulQuery.stars &gt; 0">
+            AND p.stars = #{mulQuery.stars}
+        </if>
+        <if test="mulQuery.difficult != null and mulQuery.difficult &gt; 0">
+            AND p.difficult = #{mulQuery.difficult}
+        </if>
+
+        <if test="mulQuery.categoryId != null and mulQuery.categoryId &gt; 0">
+
+            AND p.id in (select pc.problem_id from pblm_catg pc
+                where pc.category_id = #{mulQuery.categoryId})
+        </if>
+
+        <if test="mulQuery.organizationIds != null and mulQuery.organizationIds.size &gt; 0">
+            AND p.id in(
+                SELECT po.problem_id
+                from pblm_orgn po
+                WHERE po.organization_id IN
+                <foreach item="item" index="index" collection="mulQuery.organizationIds"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            )
+        </if>
+        <if test="mulQuery.positionIds != null and mulQuery.positionIds.size &gt; 0">
+            AND p.id in(
+                SELECT pp.problem_id
+                FROM pblm_posn pp
+                WHERE pp.position_id in
+                <foreach item="item" index="index" collection="mulQuery.positionIds"
+                         open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            )
+        </if>
+        <if test="mulQuery.tagIDs != null and mulQuery.tagIDs.size &gt; 0">
+            AND p.id in(
+            SELECT pt.problem_id
+                FROM pblm_tag pt
+                WHERE pt.tag_id in
+            <foreach item="item" index="index" collection="mulQuery.tagIDs"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+            )
+        </if>
+    </select>
+
+</mapper>
+

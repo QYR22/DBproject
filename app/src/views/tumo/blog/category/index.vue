@@ -189,16 +189,7 @@ export default {
                 }else {
                     this.$message.error(res.msg)
                 }
-            })//获取父文件夹名 OK的
-                // getPCategotyFilterList({}).then(res => {
-                //     if (res.code === 200) {
-                //         this.plist = res.data
-                //         // console.log(this.plist)
-                //     } else {
-                //         this.$message.error(res.msg)
-                //     }
-                // }),//这里是datafetch里面的每次都提前加载好第一个下拉列表参数
-                // ,
+            })
                 // getProblemList({}, this.pageConf).then(res => {
                 //     if (res.code === 200) {
                 //         // this.plist = res.data
@@ -421,12 +412,6 @@ export default {
 
 <style>
 
-/*.contextmenuItem{*/
-/*    display: block;*/
-/*    line-height: 20px;*/
-/*    text-align: center;*/
-/*    margin-top: 10px;*/
-/*}*/
 #contextmenu{
     height: 120px;
     width: 150px;

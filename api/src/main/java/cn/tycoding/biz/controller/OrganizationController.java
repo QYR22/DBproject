@@ -52,15 +52,15 @@ public class OrganizationController extends BaseController {
      * 获取数据库数据，并处理成树形结构
      * @return 树形结构数据
      */
-    @PostMapping("/selectAllWithTree")
-    public R selectAllWithTree(@RequestBody Organization organization) {
+    @PostMapping("/selectAllOrgnWithTree")
+    public R selectAllOrgnWithTree(@RequestBody Organization organization) {
         Long curUserId = this.getCurrentUser().getId();
         return new R<>(organizationService.listWithTreeByUser(curUserId, organization));
     }
 
     /* 查出该 公司 的 部门 列表 */
-    @GetMapping("/getSubCategories/{id}")
-    public R getSubCategories(@PathVariable("id") Long id) {
+    @GetMapping("/getSubOrganizations/{id}")
+    public R getSubOrganizations(@PathVariable("id") Long id) {
 
         LambdaQueryWrapper<Organization> queryWrapper = new LambdaQueryWrapper<>();
         //这里不用再筛userId了 因为其pid=id的话 肯定是同用户的
