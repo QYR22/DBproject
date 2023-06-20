@@ -138,6 +138,7 @@ export default {
             this.form = {}
         },
         fetchData() {
+            //岗位列表
             getPositionFilterList(this.query).then(res => {
                 if (res.code === 200) {
                     this.list = res.data
@@ -157,8 +158,10 @@ export default {
 
         },
         handleNodeChange(data, node) {
+            this.pageConf = { page: 1, limit: 8, total: 0}
             findByPositionPage(data.id,this.pageConf).then(res => {
-                this.problemList = res.data
+                this.problemList = res.data.rows
+                this.pageConf.total = res.data.total;
             })
         },
         handleDel(node, data) {

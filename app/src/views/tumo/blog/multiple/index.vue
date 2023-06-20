@@ -108,13 +108,12 @@
                                    :key="item.id"
                                    :label="item.name"
                                    :value="item.id">
-
                         </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
                     other tags
-                    <el-select v-model=queryForm.tags
+                    <el-select v-model=queryForm.tagIds
                                size="medium" clearable
                                placeholder="请选择其他标签" style="width: 280px"
                                @clear="getDataList"
@@ -190,12 +189,12 @@ import { getPositionFilterList } from '@/api/position'
 import { getTagFilterList } from '@/api/tag'
 import Pagination from '@/components/Pagination'
 
-/* TODO 实现很多标签一起search */
+/* DONE 实现很多标签一起search */
 export default {
     components: { Pagination },
     data() {
         return {
-            queryForm: {//TODO dataForm
+            queryForm: {//DONE dataForm
                 difficult: null,
                 finished: null,
                 stars: null,
@@ -212,7 +211,7 @@ export default {
             baseUrl: window.location.origin,//跳转链接
             categoryList: [],
             positionList: [],
-            organizationList: [],//TODO tree data
+            organizationList: [],//DONE tree data
             tagList: [],
             dataListLoaded:false,
             dialogVisible: false,

@@ -49,11 +49,11 @@
                         <el-option label="算法题" value=2></el-option>
                     </el-select>
                     <el-form-item>
-                        <el-button type="success" icon="el-icon-search" @click="fetchData" />
-                      <el-button type="primary" icon="el-icon-sort" @click="sortByDifficult">按难度排序</el-button>
-                      <el-button type="primary" icon="el-icon-sort" @click="sortByStars">按掌握程度排序</el-button>
-                      <el-button type="primary" icon="el-icon-sort" @click="sortByLastEdit">按最近编辑时间排序</el-button>
-                      <el-button type="primary" icon="el-icon-sort" @click="sortByCreateTime">按创建时间排序</el-button>
+                        <el-button type="success" plain icon="el-icon-search" @click="fetchData" />
+                      <el-button type="primary" plain icon="el-icon-sort" @click="sortByDifficult">按难度排序</el-button>
+                      <el-button type="primary" plain icon="el-icon-sort" @click="sortByStars">按掌握程度排序</el-button>
+                      <el-button type="primary" plain icon="el-icon-sort" @click="sortByLastEdit">按最近编辑时间排序</el-button>
+                      <el-button type="primary" plain icon="el-icon-sort" @click="sortByCreateTime">按创建时间排序</el-button>
                     </el-form-item>
                 </el-form-item>
             </el-form>

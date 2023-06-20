@@ -157,7 +157,7 @@ export default {
                 }
             })
         },
-        //xxx 处理鼠标右击事件
+        //DONE 处理鼠标右击事件
         rightClickOperation(mouseEvent,data,node,treelist) {
             console.log("rightclick")
             this.menuVisible = false

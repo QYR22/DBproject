@@ -66,7 +66,7 @@ public class ProblemController extends BaseController {
     public R findByPositionPage(@PathVariable Long id, QueryPage queryPage) {
         Long curUserId = this.getCurrentUser().getId();
         return new R<>(super.getData(problemService.findByPositionPage(id, curUserId, queryPage)));
-    }//TODO 题目和position tag categ orgn的关系
+    }//DONE 题目和position tag categ orgn的关系
 
     @GetMapping("/findByTagPage/{id}")
     public R findByTagPage(@PathVariable Long id, QueryPage queryPage) {
@@ -79,9 +79,7 @@ public class ProblemController extends BaseController {
     @PostMapping("/findMulQuery")
     public R findMulQuery(MulQuery params, QueryPage queryPage) {
         //TODO 这里传参一开始为什么为什么有bug?????
-        Long curUserId = this.getCurrentUser().getId();
         params.setUid(this.getCurrentUser().getId());
-        System.out.println(params.toString());
 
         return new R<>(super.getData(mulQueryService.findMulQuery(queryPage, params)));
     }
@@ -96,7 +94,7 @@ cn.tycoding.common.utils.QueryPage)
     @PostMapping("/list")
     public R list(@RequestBody Problem problem, QueryPage queryPage) {
         // DONE 已完成:  只显示当前用户的题目
-        //TODO 排序
+        //DONE 排序
         Long curUserId = this.getCurrentUser().getId();
         return new R<>(super.getData(problemService.listByUser(curUserId, problem, queryPage)));
     }

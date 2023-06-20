@@ -5,28 +5,35 @@
                 <h1 class="post-title" itemprop="name headline"> {{ problem.title }} </h1>
                 <div class="post-data">
                     <p v-if="problem.category != null" class="post-tags">
-                        <a href="#">{{ problem.category.name }}</a>
+                        所属文件夹 <a href="#">{{ problem.category.name }}</a>
                     </p>
                     <p class="post-tags">
-                        <a href="#">题目类型 {{ typeChange[problem.type]}}</a>
-                        <a href="#"><time>创建时间 {{ problem.createTime }}</time></a>
-                        <a href="#">{{ difficultyLevels[problem.difficult] }}</a>
-                        <a href="#">{{ finishedChange[problem.finished] }}</a>
-                        <a href="#">{{ starsChange[problem.stars]}}</a>
+                        题目类型 <a href="#">{{ typeChange[problem.type]}}</a>
+                        难度 <a href="#">{{ difficultyLevels[problem.difficult] }}</a>
+                        完成情况 <a href="#">{{ finishedChange[problem.finished] }}</a>
+                        掌握程度 <a href="#">{{ starsChange[problem.stars]}}</a>
+                    </p>
+
+                    <p class="post-tags">
+                        最近修改时间 <a href="#"><time>{{ problem.lastEdit }}</time></a>
+                        创建时间 <a href="#"><time>{{ problem.createTime }}</time></a>
                     </p>
                 </div>
             </div>
             <div class="post-content" itemprop="problemBody">
-                <p v-if="problem.tags != null && problem.tags.length>0" class="post-tags">
-                    <a v-for="item in problem.tags" :key="item.id" href="#">{{ item.name }}</a>
-                </p>
                 <p v-if="problem.organizations != null" class="post-tags">
-                    <a href="#">{{ problem.organizations.name }}</a>
+                    公司/部门 <a href="#">{{ problem.organizations.name }}</a>
                 </p>
                 <p v-if="problem.positions != null&& problem.positions.length>0" class="post-tags">
-                    <a v-for="item in problem.positions" :key="item.id" href="#">{{ item.name }}</a>
+                    岗位 <a v-for="item in problem.positions" :key="item.id" href="#">{{ item.name }}</a>
                 </p>
+                <p v-if="problem.tags != null && problem.tags.length>0" class="post-tags">
+                    题目其他标签 <a v-for="item in problem.tags" :key="item.id" href="#">{{ item.name }}</a>
+                </p>
+
+
                 <div id="post-content" ref="des" v-html="problem.des" />
+                <el-divider></el-divider>
                 <div id="post-content" ref="code" v-html="problem.code" />
                 <div id="post-content" ref="content" v-html="problem.content" />
             </div>

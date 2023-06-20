@@ -69,11 +69,10 @@ const tumoRouter = [
                 path: 'list',
                 component: () => import('@/views/tumo/problem/index'),
                 name: 'tumoProblemList',
-                meta: { title: '题目列表', icon: '' }//TODO
+                meta: { title: '题目列表', icon: 'el-icon-sort' }
             }
         ]
     },
-
     {
         path: '/tumo/blog',
         component: Layout,
@@ -93,19 +92,19 @@ const tumoRouter = [
                 path: 'organization',
                 component: () => import('@/views/tumo/blog/organization/index'),
                 name: 'organization',
-                meta: { title: '公司-部门标签管理', icon: 'el-icon-edit' }
+                meta: { title: '公司-部门标签管理', icon: 'el-icon-sort' }
             },
             {
                 path: 'position',
                 component: () => import('@/views/tumo/blog/position/index'),
                 name: 'position',
-                meta: { title: '岗位标签管理', icon: 'el-icon-edit' }
+                meta: { title: '岗位标签管理', icon: 'el-icon-menu' }
             },
             {
                 path: 'tag',
                 component: () => import('@/views/tumo/blog/tag/index'),
                 name: 'tumoBlogTag',
-                meta: { title: '标签添加+筛选', icon: 'el-icon-edit' }
+                meta: { title: '标签添加+筛选', icon: 'el-icon-star-off' }
             },
             {
                 path: 'multiple',
@@ -147,3 +146,4 @@ const tumoRouter = [
 ]
 
 export default tumoRouter
+

@@ -184,7 +184,7 @@ export default {
             selectAllWithTree({}).then(res =>{
                 if(res.code === 200){
                     this.treelist = res.data
-                    // TODO 这里放到后面处理查询数据
+                    // DONE 这里放到后面处理查询数据
                     // console.log(res.data)
                 }else {
                     this.$message.error(res.msg)
@@ -210,7 +210,7 @@ export default {
                 }
             })
         },
-        //xxx 处理鼠标右击事件
+        //DONE 处理鼠标右击事件
         //node-contextmenu共四个参数 event
         // 传递给data属性的数组中该节点对应的对象
         //结点应的node

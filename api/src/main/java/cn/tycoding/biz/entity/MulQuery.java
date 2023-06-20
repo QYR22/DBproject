@@ -13,6 +13,7 @@ import java.util.List;
  * @Author: Q2
  */
 @Data
+//用于多表查询
 public class MulQuery {
     //ApiModelProperty value字段为对属性的简单说明
 

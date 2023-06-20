@@ -3,7 +3,7 @@
         <el-card>
             <el-form ref="form" :model="form" :rules="rulesForm" label-width="80px">
                 <el-form-item label="题目标题" prop="title">
-                    <el-input v-model="form.title" placeholder="请输入题目标题" />
+                    <el-input v-model="form.title" placeholder="请输入题目标题" @input="updateTitle"/>
                 </el-form-item>
                 <el-row :gutter="20">
                     <el-col :span="10">
@@ -139,7 +139,7 @@ export default {
         'form.type'(newVal) {
             if (newVal===2) this.isCodeVisible=true;
             // 当题目类型为算法题时，isCodeVisible为true，否则为false
-            if (newVal===1) this.isCodeVisible=false;
+            else if (newVal===1) this.isCodeVisible=false;
         },
     },
     created() {
@@ -177,6 +177,7 @@ export default {
                     this.form.type = '文字题';
                 } else if (this.form.type === 2) {
                     this.form.type = '算法题';
+                    this.isCodeVisible=true;
                 }
                 this.form.difficult = res.data.difficult
                 if (this.form.difficult === 1) {
@@ -207,6 +208,9 @@ export default {
                 console.log(res.data)
             })
             this.isShow=true
+        },
+        updateTitle(){
+            this.$forceUpdate();
         },
         handleSubmit(formName) {
             if (this.form.type === '文字题') {
