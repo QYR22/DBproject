@@ -5,13 +5,13 @@
 <mapper namespace="cn.tycoding.biz.mapper.TagMapper">
 
     <select id="findTagByProblemId" parameterType="Long" resultType="cn.tycoding.biz.entity.Tag">
-        SELECT t.name
+        SELECT t.*
         FROM tag t
         WHERE t.id in (
-            SELECT pt.problem_id
+            SELECT pt.tag_id
             FROM pblm_tag pt
             WHERE pt.problem_id = #{id}
-        );
+        )
     </select>
 
 </mapper>

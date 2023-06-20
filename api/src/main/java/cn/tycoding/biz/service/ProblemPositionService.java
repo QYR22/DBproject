@@ -8,7 +8,7 @@ public interface ProblemPositionService extends IService<ProblemPosition> {
     /**
      * 新增 题目-岗位 关联关系
      *
-     * @param ProblemPosition
+     * @param problemPosition
      */
     void add(ProblemPosition problemPosition);
 

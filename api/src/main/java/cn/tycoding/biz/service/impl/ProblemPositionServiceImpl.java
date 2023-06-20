@@ -1,6 +1,5 @@
 package cn.tycoding.biz.service.impl;
 
-
 import cn.tycoding.biz.entity.ProblemPosition;
 import cn.tycoding.biz.mapper.ProblemPositionMapper;
 import cn.tycoding.biz.service.ProblemPositionService;

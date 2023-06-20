@@ -63,8 +63,6 @@ public class OrganizationController extends BaseController {
     public R getSubOrganizations(@PathVariable("id") Long id) {
 
         LambdaQueryWrapper<Organization> queryWrapper = new LambdaQueryWrapper<>();
-        //这里不用再筛userId了 因为其pid=id的话 肯定是同用户的
-        //if(pid==null) queryWrapper.isNull(Organization::getPid);
         queryWrapper.eq(Organization::getPid, id);
         return new R<>(organizationMapper.selectList(queryWrapper));
     }
@@ -84,17 +82,19 @@ public class OrganizationController extends BaseController {
             organizationService.add(organization);
             return new R();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new GlobalException(e.getMessage());
         }
     }
 
     @PutMapping
     @Log("更新公司部门")
-    public R update(@RequestBody Organization sysOrganization) {
+    public R update(@RequestBody Organization organization) {
         try {
-            organizationService.update(sysOrganization);
+            organizationService.update(organization);
             return new R();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new GlobalException(e.getMessage());
         }
     }
@@ -106,6 +106,7 @@ public class OrganizationController extends BaseController {
             organizationService.delete(id);
             return new R();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new GlobalException(e.getMessage());
         }
     }

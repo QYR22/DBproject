@@ -9,7 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@TableName("pblm_catg")
+@TableName(value = "pblm_catg")
 public class ProblemCategory implements Serializable {
 
     @TableId(type = IdType.AUTO)

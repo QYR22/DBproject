@@ -6,7 +6,16 @@
                     <el-input v-model="form.title" placeholder="请输入题目标题" />
                 </el-form-item>
                 <el-row :gutter="20">
-                    <el-col :span="10">
+                    <el-col :span="12">
+<!--                        <el-form-item>-->
+<!--                            category-->
+<!--                            <el-cascader size="max" v-model=form.category-->
+<!--                                         :options="categoryTree"-->
+<!--                                         placeholder="category文件夹"-->
+<!--                                         clearable :props="catgProps"-->
+<!--                            @change="change">-->
+<!--                            </el-cascader>-->
+<!--                        </el-form-item>-->
                         <el-form-item label="文件夹" prop="category">
                             <el-select v-model="form.category" value-key="id" placeholder="请选择文件夹" style="width: 100%">
                                 <el-option
@@ -18,7 +27,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="14">
+                    <el-col :span="12">
                         <el-form-item label="题目标签" prop="tags">
                             <el-select v-model="form.tags" value-key="id" multiple placeholder="请选择题目标签" style="width: 100%">
                                 <el-option
@@ -30,43 +39,88 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-              <el-row>
-                <el-col>
-                  <el-form-item label="题目类型" prop="type">
-                    <el-select v-model="form.type">
-                      <el-option label="文字题" value=1></el-option>
-                      <el-option label="算法题" value=2></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="题目难度" prop="difficult">
-                    <el-select v-model="form.difficult">
-                      <el-option label="简单" value=1></el-option>
-                      <el-option label="中等" value=2></el-option>
-                      <el-option label="困难" value=3></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="完成情况" prop="finished">
-                    <el-select v-model="form.finished">
-                      <el-option label="已完成" value=1></el-option>
-                      <el-option label="未完成" value=2></el-option>
-                    </el-select>
-                  </el-form-item>
-                  <el-form-item label="掌握程度" prop="stars">
-                    <el-select v-model="form.stars">
-                      <el-option label="一星" value=1></el-option>
-                      <el-option label="二星" value=2></el-option>
-                      <el-option label="三星" value=3></el-option>
-                      <el-option label="四星" value=4></el-option>
-                      <el-option label="五星" value=5></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <!--selectOrgn-->
+                        <!--                        <el-form-item label="公司部门" prop="organizations">-->
+                        <!--                            <el-select v-model="form.organizations" value-key="id" placeholder="请选择公司或部门" style="width: 100%">-->
+                        <!--                                <el-option-->
+                        <!--                                    v-for="item in organizationList"-->
+                        <!--                                    :key="item.id"-->
+                        <!--                                    :label="item.name"-->
+                        <!--                                    :value="item"-->
+                        <!--                                />-->
+                        <!--                            </el-select>-->
+                        <!--                        </el-form-item>-->
+                        <el-form-item label="公司部门" prop="organizations">
+                            <el-select v-model="form.organizations" value-key="id" placeholder="请选择公司或部门" style="width: 100%">
+                                <el-option
+                                    v-for="item in organizationList"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item"
+                                />
+                            </el-select>
+                        </el-form-item>
+<!--                        <el-form-item>-->
+<!--                            公司-部门-->
+<!--                            <el-cascader size="max" v-model=form.organizations-->
+<!--                                         :options="organizationTree"-->
+<!--                                         placeholder="公司-部门"-->
+<!--                                         clearable :props="orgnProps"-->
+<!--                                         @change="change">-->
+<!--                            </el-cascader>-->
+<!--                        </el-form-item>-->
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="岗位" prop="positions">
+                            <el-select v-model="form.positions" value-key="id" multiple placeholder="请选择岗位" style="width: 100%">
+                                <el-option
+                                    v-for="item in positionList"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item"/>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row>
+                    <el-col>
+                        <el-form-item label="题目类型" prop="type">
+                            <el-select v-model="form.type">
+                                <el-option label="文字题" value=1></el-option>
+                                <el-option label="算法题" value=2></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="题目难度" prop="difficult">
+                            <el-select v-model="form.difficult">
+                                <el-option label="简单" value=1></el-option>
+                                <el-option label="中等" value=2></el-option>
+                                <el-option label="困难" value=3></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="完成情况" prop="finished">
+                            <el-select v-model="form.finished">
+                                <el-option label="已完成" value=1></el-option>
+                                <el-option label="未完成" value=2></el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item label="掌握程度" prop="stars">
+                            <el-select v-model="form.stars">
+                                <el-option label="一星" value=1></el-option>
+                                <el-option label="二星" value=2></el-option>
+                                <el-option label="三星" value=3></el-option>
+                                <el-option label="四星" value=4></el-option>
+                                <el-option label="五星" value=5></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
                 <el-form-item label="题目描述" prop="des">
                     <tinymce v-model="form.des" :height="300" />
                 </el-form-item>
                 <el-form-item label="代码块" prop="code" v-if="isCodeVisible">
-                  <tinymce v-model="form.code" :height="300" />
+                    <tinymce v-model="form.code" :height="300" />
                 </el-form-item>
                 <el-form-item label="题目解答" prop="content">
                     <tinymce v-model="form.content" :height="300" />
@@ -80,29 +134,28 @@
 <script>
 import { mapGetters } from 'vuex'
 import Tinymce from '@/components/Tinymce'
-import { getCategoryFilterList } from '@/api/category'
+import {getCategoryFilterList, selectAllWithTree} from '@/api/category'
 import { getTagFilterList } from '@/api/tag'
 import { problemAdd } from '@/api/problem'
-
+import {getOrganizationFilterList, selectAllOrgnWithTree} from "@/api/organization";
+import {getPositionFilterList} from "@/api/position";
 export default {
     name: 'Add',
     components: { Tinymce },
     computed: {
-        ...mapGetters([
-            'qiNiuUploadApi'
-        ]),
+        ...mapGetters(['qiNiuUploadApi']),
         starsChange() {
-          return this.list.map(item => {
-            switch (item.stars) {
-              case 0: return '/'
-              case 1: return '⭐'
-              case 2: return '⭐⭐'
-              case 3: return '⭐⭐⭐'
-              case 4: return '⭐⭐⭐⭐'
-              case 5: return '⭐⭐⭐⭐⭐'
-              default: return 'null'
-            }
-          })
+            return this.list.map(item => {
+                switch (item.stars) {
+                    case 0: return '/'
+                    case 1: return '⭐'
+                    case 2: return '⭐⭐'
+                    case 3: return '⭐⭐⭐'
+                    case 4: return '⭐⭐⭐⭐'
+                    case 5: return '⭐⭐⭐⭐⭐'
+                    default: return 'null'
+                }
+            })
         }
     },
     data() {
@@ -111,6 +164,24 @@ export default {
             form: {},
             categoryList: [],
             tagList: [],
+            organizationList: [],
+            positionList: [],
+            // categoryTree: [],
+            // organizationTree: [],
+            // catgProps:{
+            //     expandTrigger:'hover',
+            //     emitPath:false,
+            //     children: 'childrenTree',
+            //     label: 'name',
+            //     value:'id'
+            // },
+            // orgnProps:{
+            //     expandTrigger:'hover',
+            //     emitPath:false,
+            //     children: 'childrenTree',
+            //     label: 'name',
+            //     value:'id'
+            // },
             rulesForm: {
                 title: [
                     { required: true, message: '请输入题目标题', trigger: 'blur' }
@@ -119,27 +190,44 @@ export default {
                     { required: true, message: '请输入题目描述', trigger: 'blur' }
                 ]
             },
-          isCodeVisible: false
+            isCodeVisible: false
         }
     },
     watch: {
-      'form.type'(newVal) {
-        if (newVal==2) this.isCodeVisible=true;// 当题目类型为算法题时，isCodeVisible为true，否则为false
-        if (newVal==1) this.isCodeVisible=false;
-      },
+        'form.type'(newVal) {
+            if (newVal==2) this.isCodeVisible=true;// 当题目类型为算法题时，isCodeVisible为true，否则为false
+            if (newVal==1) this.isCodeVisible=false;
+        },
     },
     created() {
         this.fetchData()
     },
     methods: {
         fetchData() {
+            // selectAllWithTree({}).then(res=>{
+            //     this.categoryTree = res.data
+            //     // console.log(this.categoryTree)
+            // })
+            // selectAllOrgnWithTree({}).then(res=>{
+            //     this.organizationTree = res.data
+            //     console.log(this.organizationTree)
+            // })
             getCategoryFilterList({}).then(res => {
                 this.categoryList = res.data
             })
             getTagFilterList({}).then(res => {
                 this.tagList = res.data
             })
+            getOrganizationFilterList({}).then(res => {
+                this.organizationList = res.data
+            })
+            getPositionFilterList({}).then(res => {
+                this.positionList = res.data
+            })
         },
+        // change(val){
+        //     let nodesObj = this.$refs['cascader'].getCheckedNodes()
+        // },
         handleSubmit(formName) {
             //this.$refs一个对象 存储所有使用ref属性定义的子组件orDOM元素的引用
             //this.$refs[formName]用于访问指定名称的子组件orDOM元素的引用
@@ -149,6 +237,8 @@ export default {
                     const formData = {
                         ...this.form
                     }
+                    // formData.category = nodesObj
+
                     problemAdd(formData).then(res => {
                         if (res.code === 200) {
                             this.$message.success('题目添加成功，即将跳转到题目列表页面')
@@ -171,3 +261,4 @@ export default {
 
 <style lang="scss" scoped>
 </style>
+

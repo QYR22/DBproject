@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Data
-@TableName("organization")
+@TableName(value = "organization")
 public class Organization implements Serializable {
 
     @TableId(type = IdType.AUTO)
@@ -21,11 +21,18 @@ public class Organization implements Serializable {
 
     private String name;
 
+//    /*@TableField(exist = false)
+//    private Long count;*/
+
     public Organization() {
     }
 
     public Organization(String name) {
         this.name = name;
+    }
+
+    public Organization(Long id) {
+        this.id = id;
     }
 
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)

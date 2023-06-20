@@ -22,7 +22,12 @@ export function getTagById(id) {
     method: 'get'
   })
 }
-
+export function findTagByProblemId(id) {
+    return request({
+        url: `/findByProblem/${id}`,
+        method: 'get'
+    })
+}
 export function tagUpdate(data) {
   return request({
     url: `/tag`,

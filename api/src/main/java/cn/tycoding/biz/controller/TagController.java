@@ -1,6 +1,7 @@
 package cn.tycoding.biz.controller;
 
 import cn.tycoding.biz.entity.Tag;
+import cn.tycoding.biz.mapper.TagMapper;
 import cn.tycoding.biz.service.TagService;
 import cn.tycoding.common.annotation.Log;
 import cn.tycoding.common.constants.CommonConstant;
@@ -20,6 +21,8 @@ public class TagController extends BaseController {
 
     @Autowired
     private TagService tagService;
+    @Autowired
+    private TagMapper tagMapper;
 
     @PostMapping("/list")
     public R findByPage(@RequestBody Tag tag, QueryPage queryPage) {
@@ -37,6 +40,10 @@ public class TagController extends BaseController {
     @GetMapping("/{id}")
     public R findById(@PathVariable Long id) {
         return new R<>(tagService.getById(id));
+    }
+    @GetMapping("/findByProblem/{id}")
+    public R findByProblem(@PathVariable Long id) {
+        return new R<>(tagMapper.findTagByProblemId(id));
     }
 
     @PostMapping

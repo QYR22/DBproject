@@ -39,8 +39,6 @@ export function getOrganizationById(id) {
 }
 
 
-
-
 export function getSubOrganizations(id) {
     return request({
         url: `/organization/getSubOrganizations/${id}`,

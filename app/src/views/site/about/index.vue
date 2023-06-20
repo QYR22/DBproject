@@ -4,7 +4,7 @@
       <div class="post-header"><h1 class="post-title" itemprop="name headline"> About </h1>
       </div>
       <div id="post-content" class="post-content">
-        <p>加油！</p>
+        <p>加油</p>
       </div>
     </article>
   </div>

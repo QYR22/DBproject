@@ -44,7 +44,7 @@
                     时间范围
                     <el-select v-model=queryForm.lastEdit
                                size="medium" clearable
-                               placeholder="请选择时间范围" style="width: 280px"
+                               placeholder="请选择时间范围" style="width: 300px"
                                @clear="getDataList"
                                @change="getDataList">
                         <el-option label="近一周" :value="getPastDate(7)"></el-option>
@@ -56,7 +56,7 @@
                     text/code
                     <el-select v-model=queryForm.type
                                size="medium" clearable
-                               placeholder="文字题or算法题" style="width: 250px"
+                               placeholder="文字题or算法题" style="width: 280px"
                                @clear="getDataList"
                                @change="getDataList">
                         <el-option label="文字题" value=1></el-option>
@@ -104,13 +104,18 @@
                                placeholder="请选择岗位" style="width: 280px"
                                @clear="getDataList"
                                @change="getDataList">
-                        <el-option v-for="item in positionList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                        <el-option v-for="item in positionList"
+                                   :key="item.id"
+                                   :label="item.name"
+                                   :value="item.id">
+
+                        </el-option>
                     </el-select>
                 </el-form-item>
                 <el-form-item>
                     other tags
-                    <el-select v-model=queryForm.tagIds
-                               size="max" clearable
+                    <el-select v-model=queryForm.tags
+                               size="medium" clearable
                                placeholder="请选择其他标签" style="width: 280px"
                                @clear="getDataList"
                                @change="getDataList">
@@ -197,9 +202,9 @@ export default {
                 lastEdit: null,
                 type: null,
                 categoryId: null,
-                organizationIds:[],//装id吧
-                positionIds:[],
-                tagIds:[],
+                organizations:[],//装id吧
+                positions:[],
+                tags:[],
             },
             "categoryPId": null,
             list: [],//problem list 筛选结果

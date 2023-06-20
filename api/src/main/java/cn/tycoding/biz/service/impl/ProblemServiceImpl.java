@@ -102,6 +102,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
         //创建一个IPage对象
         IPage<Problem> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         IPage<Problem> selectPage =  problemMapper.findByCategoryPage(page,id,userId);
+        findInit(selectPage.getRecords());
         return selectPage;
     }
     /*
@@ -112,6 +113,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
 
         IPage<Problem> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         IPage<Problem> selectPage =  problemMapper.findByOrganizationPage(page,id,userId);
+        findInit(selectPage.getRecords());
         return selectPage;
     }
     /*
@@ -122,6 +124,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
 
         IPage<Problem> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         IPage<Problem> selectPage =  problemMapper.findByPositionPage(page,id,userId);
+        findInit(selectPage.getRecords());
         return selectPage;
     }
     /*
@@ -132,6 +135,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
 
         IPage<Problem> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         IPage<Problem> selectPage =  problemMapper.findByTagPage(page,id,userId);
+        findInit(selectPage.getRecords());
         return selectPage;
     }
 
@@ -161,10 +165,23 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
         WHERE pblm_user_id = userId
         */
         queryWrapper.eq(Problem::getUid, userId);
-        queryWrapper.orderByDesc(Problem::getId);
+        if (problem.isSortByDifficult) {
+            queryWrapper.orderByDesc(Problem::getDifficult);
+        }
+        else if (problem.isSortByStars) {
+            queryWrapper.orderByDesc(Problem::getStars);
+        }
+        else if (problem.isSortByLastEdit) {
+            queryWrapper.orderByDesc(Problem::getLastEdit);
+        }
+        else if (problem.isSortByCreateTime) {
+            queryWrapper.orderByDesc(Problem::getCreateTime);
+        }
+        else queryWrapper.orderByDesc(Problem::getId);
         queryWrapper.eq(problem.getType() != 0, Problem::getType, problem.getType());
         queryWrapper.eq(problem.getStars() != 0, Problem::getStars, problem.getStars());
         queryWrapper.eq(problem.getDifficult() != 0, Problem::getDifficult, problem.getDifficult());
+        queryWrapper.eq(problem.getFinished() != 0, Problem::getFinished, problem.getFinished());
         queryWrapper.ge(problem.getLastEdit() != null, Problem::getLastEdit, problem.getLastEdit());
 
         //!!实现应该是OR!! 用lambda表达式
@@ -183,15 +200,17 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
     private void findInit(List<Problem> list) {
         if (!list.isEmpty()) {
             list.forEach(problem -> {
-                List<Category> sysCategoryList = categoryService.findByProblemId(problem.getId());
+                List<Category> sysCategoryList = categoryService.findCategoryByProblemId(problem.getId());
                 if (sysCategoryList.size() > 0) {
                     problem.setCategory(sysCategoryList.get(0));
                 }
-                List<Organization> organizationList = organizationService.findByProblemId(problem.getId());
-                problem.setOrganizations(organizationList);
-                List<Position> positionList = positionService.findByProblemId(problem.getId());
+                List<Organization> organizations = organizationService.findOrganizationByProblemId(problem.getId());
+                if (organizations.size() > 0) {
+                    problem.setOrganizations(organizations.get(0));
+                }
+                List<Position> positionList = positionService.findPositionByProblemId(problem.getId());
                 problem.setPositions(positionList);
-                List<Tag> tagList = tagService.findByProblemId(problem.getId());
+                List<Tag> tagList = tagService.findTagByProblemId(problem.getId());
                 problem.setTags(tagList);
             });
         }
@@ -225,6 +244,7 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
     private void updateProblemCatgOrgnPosnTag(Problem problem) {
 
         if (problem.getId() > 0) {
+
             // 1. Category-Problem
             if (problem.getCategory() != null) {
                 problemCategoryService.deleteByProblemId(problem.getId());
@@ -235,11 +255,14 @@ public class ProblemServiceImpl extends ServiceImpl<ProblemMapper, Problem> impl
                 }
             }
             // 2. Organization-Problem
-            if (problem.getOrganizations() != null && problem.getOrganizations().size() > 0) {
+            if (problem.getOrganizations() != null) {
                 problemOrganizationService.deleteByProblemId(problem.getId());
-                problem.getOrganizations().forEach(organization -> {
+
+                Organization organization = organizationService.getById(problem.getOrganizations());
+                if (organization != null) {
+
                     problemOrganizationService.add(new ProblemOrganization(problem.getId(), organization.getId()));
-                });
+                }
             }
             // 3. Position-Problem
             if (problem.getPositions() != null && problem.getPositions().size() > 0) {

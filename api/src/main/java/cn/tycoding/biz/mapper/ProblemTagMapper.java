@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ProblemTagMapper extends BaseMapper<ProblemTag> {
 
-    List<Tag> findByProblemId(Long problemId);
+    List<Tag> findTagByProblemId(Long problemId);
 }

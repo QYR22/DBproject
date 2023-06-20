@@ -125,9 +125,11 @@ cn.tycoding.common.utils.QueryPage)
     public R add(@RequestBody Problem problem) {
         try {
             problem.setUid(this.getCurrentUser().getId());
+            System.out.println(problem.toString());
             problemService.add(problem);
             return new R();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new GlobalException(e.getMessage());
         }
     }

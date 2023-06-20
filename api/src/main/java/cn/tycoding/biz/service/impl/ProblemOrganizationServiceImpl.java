@@ -28,7 +28,7 @@ public class ProblemOrganizationServiceImpl extends ServiceImpl<ProblemOrganizat
     private boolean exists(ProblemOrganization problemOrganization) {
         LambdaQueryWrapper<ProblemOrganization> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ProblemOrganization::getProblemId, problemOrganization.getProblemId());
-        queryWrapper.eq(ProblemOrganization::getOrganizationId, problemOrganization.getOrganizationId());
+//        queryWrapper.eq(ProblemOrganization::getOrganizationId, problemOrganization.getOrganizationId());
         return problemOrganizationMapper.selectList(queryWrapper).size() > 0;
     }
 

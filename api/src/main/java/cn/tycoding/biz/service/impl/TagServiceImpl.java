@@ -76,6 +76,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     private boolean exists(Tag sysTag) {
         LambdaQueryWrapper<Tag> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Tag::getName, sysTag.getName());
+        queryWrapper.eq(Tag::getUid, sysTag.getUid());
         return tagMapper.selectList(queryWrapper).size() > 0;
     }
 
@@ -95,7 +96,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
     }
 
     @Override
-    public List<Tag> findByProblemId(Long id) {
+    public List<Tag> findTagByProblemId(Long id) {
         return tagMapper.findTagByProblemId(id);
     }
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ProblemPositionMapper extends BaseMapper<ProblemPosition> {
 
-    List<Position> findByProblemId(Long problemId);
+    List<Position> findPositionByProblemId(Long problemId);
 }

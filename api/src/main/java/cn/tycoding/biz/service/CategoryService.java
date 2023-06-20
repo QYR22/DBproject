@@ -30,5 +30,5 @@ public interface CategoryService extends IService<Category> {
     void delete(Long id);
 
     /* 根据ProblemId查询其关联的分类数据 */
-    List<Category> findByProblemId(Long id);
+    List<Category> findCategoryByProblemId(Long id);
 }

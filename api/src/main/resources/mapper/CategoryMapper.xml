@@ -6,10 +6,10 @@
 
     <!-- 根据题目id查询其关联分类表中的数据 -->
     <select id="findCategoryByProblemId" parameterType="Long" resultType="cn.tycoding.biz.entity.Category">
-        SELECT p.name
-        FROM category p
-        WHERE p.id in (
-            SELECT pc.problem_id
+        SELECT c.*
+        FROM category c
+        WHERE c.id in (
+            SELECT pc.category_id
             FROM pblm_catg pc
             WHERE pc.problem_id = #{id}
         );

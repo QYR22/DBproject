@@ -30,5 +30,5 @@ public interface OrganizationService extends IService<Organization> {
     void delete(Long id);
 
     /* 根据ProblemId查询其关联的公司部门数据 */
-    List<Organization> findByProblemId(Long id);
+    List<Organization> findOrganizationByProblemId(Long id);
 }

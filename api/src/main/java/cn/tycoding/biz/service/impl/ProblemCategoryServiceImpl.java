@@ -1,22 +1,13 @@
 package cn.tycoding.biz.service.impl;
 
-import cn.tycoding.biz.entity.Problem;
 import cn.tycoding.biz.entity.ProblemCategory;
 import cn.tycoding.biz.mapper.ProblemCategoryMapper;
-import cn.tycoding.biz.mapper.ProblemCategoryMapper;
 import cn.tycoding.biz.service.ProblemCategoryService;
-import cn.tycoding.common.utils.QueryPage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class ProblemCategoryServiceImpl extends ServiceImpl<ProblemCategoryMapper, ProblemCategory> implements ProblemCategoryService {

@@ -73,12 +73,8 @@
 </template>
 
 <script>
-import {
-    organizationDel,
-    getSubCategories,
-    selectAllWithTree,
-    organizationAdd, organizationUpdate
-} from '@/api/organization'
+//getSubOrganizations,
+import {organizationDel, selectAllOrgnWithTree, organizationAdd, organizationUpdate} from '@/api/organization'
 import {findByOrganization, findByOrganizationPage} from '@/api/problem'
 
 import Pagination from "@/components/Pagination";
@@ -144,7 +140,7 @@ export default {
     },
     methods: {
         fetchData() {//获取el-tree的树形数据
-            selectAllWithTree({}).then(res =>{
+            selectAllOrgnWithTree({}).then(res =>{
                 if(res.code === 200){
                     this.treelist = res.data
                 }else {

@@ -21,5 +21,5 @@ public interface PositionService extends IService<Position> {
 
     void delete(Long id);
 
-    List<Position> findByProblemId(Long id);
+    List<Position> findPositionByProblemId(Long id);
 }

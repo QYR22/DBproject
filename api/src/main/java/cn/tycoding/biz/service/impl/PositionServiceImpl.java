@@ -95,7 +95,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, Position> i
     }
 
     @Override
-    public List<Position> findByProblemId(Long id) {
+    public List<Position> findPositionByProblemId(Long id) {
         return positionMapper.findPositionByProblemId(id);
     }
 

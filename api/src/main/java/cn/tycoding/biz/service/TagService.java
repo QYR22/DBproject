@@ -22,6 +22,6 @@ public interface TagService extends IService<Tag> {
 
     void delete(Long id);
 
-    List<Tag> findByProblemId(Long id);
+    List<Tag> findTagByProblemId(Long id);
 
 }

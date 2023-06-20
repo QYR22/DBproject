@@ -165,7 +165,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    public List<Category> findByProblemId(Long id) {
+    public List<Category> findCategoryByProblemId(Long id) {
         return categoryMapper.findCategoryByProblemId(id);
     }
 }

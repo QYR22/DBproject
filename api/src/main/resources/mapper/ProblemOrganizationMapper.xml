@@ -2,20 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.tycoding.biz.mapper.OrganizationMapper">
+<mapper namespace="cn.tycoding.biz.mapper.ProblemOrganizationMapper">
 
-    <!-- 根据题目id查询其关联分类表中的数据 -->
-    <select id="findOrganizationByProblemId" parameterType="Long" resultType="cn.tycoding.biz.entity.Organization">
+    <!-- 根据题目ID 查询其关联的 岗位position 信息 -->
+    <select id="findOrganizationByProblemId" resultType="cn.tycoding.biz.entity.Organization">
         SELECT o.*
         FROM organization o
         WHERE o.id in (
             SELECT po.organization_id
             FROM pblm_orgn po
-            WHERE po.problem_id = #{id}
-        );
+            WHERE po.problem_id = #{problemId}
+        )
     </select>
 
 </mapper>
-
-
-

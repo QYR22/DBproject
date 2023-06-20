@@ -133,26 +133,24 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
         */
         queryWrapper.eq(Organization::getName, organization.getName());
         queryWrapper.eq(Organization::getUid, organization.getUid());
-        return organizationMapper.selectList(queryWrapper).size() > 0 ? true : false;
+        return organizationMapper.selectList(queryWrapper).size() > 0;
     }
 
     @Override
     @Transactional
-    public void add(Organization sysOrganization) {
+    public void add(Organization organization) {
         //不存在这个organization时才可以添加
         //organization这条tuple里面是包含orgn_uid的
-        if (!exists(sysOrganization)) {
-            organizationMapper.insert(sysOrganization);
+        if (!exists(organization)) {
+            organizationMapper.insert(organization);
         }
     }
 
     @Override
     @Transactional
-    public void update(Organization sysOrganization) {
-        organizationMapper.updateById(sysOrganization);
+    public void update(Organization organization) {
+        organizationMapper.updateById(organization);
     }
-
-
 
     @Override
     @Transactional
@@ -166,7 +164,7 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
     }
 
     @Override
-    public List<Organization> findByProblemId(Long id) {
+    public List<Organization> findOrganizationByProblemId(Long id) {
         return organizationMapper.findOrganizationByProblemId(id);
     }
 }

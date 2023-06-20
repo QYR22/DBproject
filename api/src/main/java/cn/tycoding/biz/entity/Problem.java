@@ -48,7 +48,7 @@ public class Problem implements Serializable {
     private Date lastEdit;
 
     @TableField(exist = false)
-    private List<Organization> organizations;
+    private Organization organizations;
 
     @TableField(exist = false)
     private List<Position> positions;
@@ -58,4 +58,14 @@ public class Problem implements Serializable {
 
     @TableField(exist = false)
     private Category category;
+
+
+    @TableField(exist = false)
+    public boolean isSortByDifficult;
+    @TableField(exist = false)
+    public boolean isSortByStars;
+    @TableField(exist = false)
+    public boolean isSortByCreateTime;
+    @TableField(exist = false)
+    public boolean isSortByLastEdit;
 }

@@ -50,6 +50,10 @@
                     </el-select>
                     <el-form-item>
                         <el-button type="success" icon="el-icon-search" @click="fetchData" />
+                      <el-button type="primary" icon="el-icon-sort" @click="sortByDifficult">按难度排序</el-button>
+                      <el-button type="primary" icon="el-icon-sort" @click="sortByStars">按掌握程度排序</el-button>
+                      <el-button type="primary" icon="el-icon-sort" @click="sortByLastEdit">按最近编辑时间排序</el-button>
+                      <el-button type="primary" icon="el-icon-sort" @click="sortByCreateTime">按创建时间排序</el-button>
                     </el-form-item>
                 </el-form-item>
             </el-form>
@@ -126,6 +130,10 @@ export default {
         }
     },
     created() {
+      this.query.isSortByDifficult = false;
+      this.query.isSortByStars = false;
+      this.query.isSortByCreateTime = false;
+      this.query.isSortByLastEdit = false;
         this.fetchData()
     },
     // 在Vue组件的计算属性中添加以下代码
@@ -195,6 +203,34 @@ export default {
                 }
             })
         },
+      sortByDifficult() {
+        this.query.isSortByDifficult = true;
+        this.query.isSortByStars = false;
+        this.query.isSortByCreateTime = false;
+        this.query.isSortByLastEdit = false;
+        this.fetchData();
+      },
+      sortByStars() {
+        this.query.isSortByStars = true;
+        this.query.isSortByDifficult = false;
+        this.query.isSortByCreateTime = false;
+        this.query.isSortByLastEdit = false;
+        this.fetchData();
+      },
+      sortByLastEdit() {
+        this.query.isSortByLastEdit = true;
+        this.query.isSortByDifficult = false;
+        this.query.isSortByStars = false;
+        this.query.isSortByCreateTime = false;
+        this.fetchData();
+      },
+      sortByCreateTime() {
+        this.query.isSortByCreateTime = true;
+        this.query.isSortByDifficult = false;
+        this.query.isSortByStars = false;
+        this.query.isSortByLastEdit = false;
+        this.fetchData();
+      },
         handleEdit(id) {
             getProblemById(id).then(res => {
                 if (res.code === 200) {

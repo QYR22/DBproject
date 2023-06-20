@@ -5,14 +5,14 @@
 <mapper namespace="cn.tycoding.biz.mapper.ProblemTagMapper">
 
     <!-- 根据题目ID查询其关联的标签信息 -->
-    <select id="findByProblemId" resultType="cn.tycoding.biz.entity.Tag">
-        SELECT t.name
+    <select id="findTagByProblemId" resultType="cn.tycoding.biz.entity.Tag">
+        SELECT t.*
         FROM tag t
         WHERE t.id in (
             SELECT pt.problem_id
             FROM pblm_tag pt
             WHERE pt.problem_id = #{problemId}
-        );
+        )
     </select>
 
 </mapper>
