@@ -128,7 +128,7 @@ npm run build:prod
 - 文字题edit界面
 ![文字题edit界面](./previewpics/textproblem_edit_page.jpeg)
 - 代码题edit界面
-![代码题edit界面](./previewpics/codeproblem_edit_page.jpeg)
+![代码题edit界面](./previewpics/code_problem_edit_page.jpeg)
 - 题目搜索界面
 ![题目搜索界面](./previewpics/problem_search.png)
 - 总查询界面-->多表动态联查
