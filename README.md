@@ -1,13 +1,18 @@
 > DB project - ECNU.SEI
 
 - [DBproject](#DBproject)
-
-[项目背景](##项目背景)
-[目的](###目的)
-[功能](###功能)
-[技术栈](##技术栈)
-[技术框架](###技术框架)
-
+- [项目背景](#项目背景)
+- [目的](#目的)
+- [功能](#功能)
+- [技术栈](#技术栈)
+- [技术框架](#技术框架)
+- [数据库设计](#数据库设计)
+- [ER图](#ER图)
+- [关系模式](#关系模式)
+- [项目运行](#项目运行)
+- [后端操作](#后端操作)
+- [前端操作](#前端操作)
+- [项目预览](#项目预览)
 
 # DBproject
 
@@ -86,10 +91,7 @@
 
 ## 前端操作
 
-## Build Setup
-
 首先在terminal中进入到app文件夹。
-
 
 ```bash
 cd app
@@ -116,6 +118,44 @@ npm run build:prod
 ```
 
 
-
 # 项目预览
+- 首页
+![首页](./previewpics/homepage.png)
+- 登录界面
+![登录](./previewpics/loginpage.png)
+- 题目列表界面
+![题目列表界面](./previewpics/problem_list.png)
+- 文字题edit界面
+![文字题edit界面](./previewpics/textproblem_edit_page.jpeg)
+- 代码题edit界面
+![代码题edit界面](./previewpics/codeproblem_edit_page.jpeg)
+- 题目搜索界面
+![题目搜索界面](./previewpics/problem_search.png)
+- 总查询界面-->多表动态联查
+![多表动态联查](./previewpics/multiple_search.png)
+- 题目展示界面
+![题目展示界面](./previewpics/problem_showpage.jpeg)
+- category文件夹 + 左键搜索
+![category文件夹左键搜索](./previewpics/category_leftclick_search.png)
+- category文件夹 + 右键操作
+![category文件夹右键搜索](./previewpics/category_rightclick_operation.png)
+- category错误提醒 
+![错误提醒](./previewpics/categoryerror2.png)
+//organization的实现和category基本一致，不再展示
+![organization_page](./previewpics/organization_page.png)
 
+- position&tag删除前的检测
+![删除前的检测](./previewpics/delete_check.png)
+![删除前的检测](./previewpics/delete_warnning.png)
+- position页面
+![position页面](./previewpics/position_page.png)
+
+其他功能介绍
+- 所有查询结果实现分页
+![所有查询结果实现分页](./previewpics/Pagination.png)
+- 支持代码高亮
+![支持代码高亮](./previewpics/syntax_highlight.png)
+- 用户界面
+![用户界面](./previewpics/userinformation.png)
+- 修改密码
+![修改密码](./previewpics/passwordpage.png)
